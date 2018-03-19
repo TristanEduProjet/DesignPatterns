@@ -24,15 +24,16 @@ namespace FolderFile
             return filesCount + foldersCount;
         }
 
-        public List<string> ListChildren(string parent_path = null) {
-            /*const*/ string basename = (parent_path!=null) ? (parent_path + this.Name + "/") : "";
+        public List<string> ListChildren(bool ordered =false, string parent_path = null) {
+            /*const*/ string _base = (parent_path!=null) ? (parent_path + this.Name + "/") : "";
             List<string> list = new List<string>();
             if(parent_path != null)
-                list.Add(basename);
+                list.Add(_base);
             /*if(this.Files != null)
                 list.AddRange(this.Files.ConvertAll(f => basename+f.Name));*/
-            this.Files?.ForEach(f => list.Add(basename+f.Name));
-            this.Folders?.ConvertAll(f => f.ListChildren(basename)).ForEach(l => list.AddRange(l));
+            this.Files?.ForEach(f => list.Add(_base+f.Name));
+            this.Folders?.ConvertAll(f => f.ListChildren(false, _base)).ForEach(l => list.AddRange(l));
+            if(ordered) list.Sort();
             return list;
         }
     }

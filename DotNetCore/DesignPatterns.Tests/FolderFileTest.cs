@@ -40,6 +40,16 @@ namespace DesignPatterns
             Assert.IsTrue(children.Contains("Data Folder/"));
         }
 
+        public void Should_folder_list_ordered()
+        {
+            var children = CreateFolderTree().ListChildren(true);
+            System.Console.WriteLine(children.ToString());
+            children.ForEach(System.Console.WriteLine);
+            Assert.AreEqual(2, children.Count);
+            Assert.AreEqual(children[0], "Data Folder/");
+            Assert.AreEqual(children[1], "data.txt");
+        }
+
         private static Folder CreateFolderTree()
         {
             var textFile = new File { Name = "data.txt" };
