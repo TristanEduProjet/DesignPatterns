@@ -29,10 +29,10 @@ namespace FolderFile
             List<string> list = new List<string>();
             if(parent_path != null)
                 list.Add(basename);
-            if(this.Files != null)
-                list.AddRange(this.Files.ConvertAll(f => basename+f.Name));
-            if(this.Folders != null)
-                this.Folders.ConvertAll(f => f.ListChildren(basename)).ForEach(l => list.AddRange(l));
+            /*if(this.Files != null)
+                list.AddRange(this.Files.ConvertAll(f => basename+f.Name));*/
+            this.Files?.ForEach(f => list.Add(basename+f.Name));
+            this.Folders?.ConvertAll(f => f.ListChildren(basename)).ForEach(l => list.AddRange(l));
             return list;
         }
     }
