@@ -29,11 +29,22 @@ namespace DesignPatterns
             Assert.AreEqual(2, containsNumber);
         }
 
+        [TestMethod]
+        public void Should_folder_list_work()
+        {
+            var children = CreateFolderTree().ListChildren();
+            System.Console.WriteLine(children.ToString());
+            children.ForEach(System.Console.WriteLine);
+            Assert.AreEqual(2, children.Count);
+            Assert.IsTrue(children.Contains("data.txt"));
+            Assert.IsTrue(children.Contains("Data Folder/"));
+        }
+
         private static Folder CreateFolderTree()
         {
             var textFile = new File { Name = "data.txt" };
             var firstFolder = new Folder { Name = "Data Folder" };
-            var secondFolder = new Folder { Name = "Folder" };
+            //var secondFolder = new Folder { Name = "Folder" };
 
             var parentFolder = new Folder { Name = "Parent Folder" };
             parentFolder.Files = new List<File> { textFile };
