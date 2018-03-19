@@ -12,7 +12,7 @@ namespace DesignPatterns
         {
             var textFile = new File { Name = "data.txt" };
             var parentFolder = new Folder { Name = "Parent Folder" };
-            parentFolder.Files = new List<File> { textFile };
+            parentFolder.childs.Add(textFile);
 
             var containsNumber = parentFolder.GetContainsNumber();
             
@@ -22,10 +22,7 @@ namespace DesignPatterns
         [TestMethod]
         public void Should_folder_contains_three_elements_when_gettings_contains()
         {
-            var folder = CreateFolderTree();
-
-            var containsNumber = folder.GetContainsNumber();
-            
+            var containsNumber = CreateFolderTree().GetContainsNumber();
             Assert.AreEqual(2, containsNumber);
         }
 
@@ -40,6 +37,7 @@ namespace DesignPatterns
             Assert.IsTrue(children.Contains("Data Folder/"));
         }
 
+        [TestMethod]
         public void Should_folder_list_ordered()
         {
             var children = CreateFolderTree().ListChildren(true);
@@ -57,8 +55,8 @@ namespace DesignPatterns
             //var secondFolder = new Folder { Name = "Folder" };
 
             var parentFolder = new Folder { Name = "Parent Folder" };
-            parentFolder.Files = new List<File> { textFile };
-            parentFolder.Folders = new List<Folder> { firstFolder };
+            parentFolder.childs.AddRange(new List<File> { textFile });
+            parentFolder.childs.AddRange(new List<Folder> { firstFolder });
 
             return parentFolder;
         }
